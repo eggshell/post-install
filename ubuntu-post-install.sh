@@ -42,4 +42,6 @@ sudo apt-get install -y kubectl
 curl -sL https://ibm.biz/idt-installer | bash
 
 # Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+CURRENT_USER=$(whoami)
+sudo usermod -s /usr/bin/zsh $CURRENT_USER
+sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | grep -Ev 'chsh -s|env zsh')"
