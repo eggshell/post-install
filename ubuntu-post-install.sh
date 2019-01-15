@@ -4,8 +4,6 @@
 
 set -e
 
-# INSTALL_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
 # Turn comments into literal programming, including output during execution.
 function reporter() {
   MESSAGE="$1"
@@ -69,6 +67,22 @@ function ensure_ohmyzsh() {
   sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | grep -Ev 'chsh -s|env zsh')"
 }
 
+function ensure_dotfiles() {
+  reporter "Grabbing and stowing dotfiles"
+  DOTFILES_REPO=https://github.com/CullenTaylor/dotfiles.git
+  DOTFILES_DESTINATION=$HOME/dotfiles
+  DOTFILES_BRANCH=master
+  STOW_LIST="config git htop vim xscreensaver xorg zsh"
+
+  git clone ${DOTFILES_REPO} ${DOTFILES_DESTINATION}
+  cd ${DOTFILES_DESTINATION}
+  git checkout ${DOTFILES_BRANCH}
+  for app in ${STOW_LIST}; do
+      stow ${app}
+  done
+  cd ${HOME}
+}
+
 function main() {
   check_for_internet
   ensure_repos
@@ -83,9 +97,13 @@ function main() {
   ensure_docker
   ensure_kubectl
   ensure_ohmyzsh
+  ensure_dotfiles
 
   reporter "Installing ibmcloud tools"
   curl -sL https://ibm.biz/idt-installer | bash
+
+  reporter "Generating user RSA keys"
+  ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 }
 
 main "$@"
