@@ -69,12 +69,13 @@ function ensure_ohmyzsh() {
 
 function ensure_owned_dirs() {
   reporter "Ensuring needed dirs are owned by current user"
-  sudo chown -R $(whoami) /usr/local/src
+  sudo chown -R $(whoami):$(whoami) /usr/local/src
+  sudo chown -R $(whoami):$(whoami) /home/eggshell/.oh-my-zsh
 }
 
 function ensure_zsh_syntax_highlighting() {
   reporter "Cloning zsh-syntax-highlighting"
-  SYNTAX_DIR=/usr/local/src
+  SYNTAX_DIR=/usr/local/src/zsh-syntax-highlighting
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${SYNTAX_DIR}
 }
 
