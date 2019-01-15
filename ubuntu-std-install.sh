@@ -70,7 +70,7 @@ function ensure_ohmyzsh() {
 function ensure_owned_dirs() {
   reporter "Ensuring needed dirs are owned by current user"
   sudo chown -R $(whoami):$(whoami) /usr/local/src
-  sudo chown -R $(whoami):$(whoami) /home/eggshell/.oh-my-zsh
+  sudo chown -R $(whoami):$(whoami) /home/$(whoami)/.oh-my-zsh
 }
 
 function ensure_zsh_syntax_highlighting() {
@@ -81,10 +81,15 @@ function ensure_zsh_syntax_highlighting() {
 
 function remove_old_configs() {
   reporter "Removing old config files"
-  OLD_CONFIGS=".zshrc .vimrc .vim .gitconfig"
+  OLD_CONFIGS=".gitconfig .zshrc .vimrc .vim"
   for CONFIG in ${OLD_CONFIGS}; do
       rm -rf $HOME/${CONFIG}
   done
+}
+
+function rename_ohmyzsh_theme() {
+  mv /home/$(whoami)/.oh-my-zsh/themes/sunrise.zsh-theme \
+     /home/$(whoami)/.oh-my-zsh/themes/sunrise.zsh-theme.old
 }
 
 function ensure_dotfiles() {
@@ -92,7 +97,7 @@ function ensure_dotfiles() {
   DOTFILES_REPO=https://github.com/eggshell/dotfiles.git
   DOTFILES_DESTINATION=$HOME/dotfiles
   DOTFILES_BRANCH=master
-  STOW_LIST="config git htop vim xscreensaver xorg zsh"
+  STOW_LIST="config git oh-my-zsh htop vim xscreensaver xorg zsh"
 
   git clone ${DOTFILES_REPO} ${DOTFILES_DESTINATION}
   cd ${DOTFILES_DESTINATION}
@@ -120,6 +125,7 @@ function main() {
   ensure_owned_dirs
   ensure_zsh_syntax_highlighting
   remove_old_configs
+  rename_ohmyzsh_theme
   ensure_dotfiles
 
   reporter "Installing ibmcloud tools"
