@@ -24,7 +24,6 @@ function check_for_internet() {
   else
     echo "Connection successful"
   fi
-
 }
 
 function ensure_repos() {
