@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -eux
+
+sudo apt update
 #sudo apt update && sudo apt upgrade -y
 sudo apt install -y $(awk '{ print $1 }' data/apt_packages.list)
 
