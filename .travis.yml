@@ -3,6 +3,4 @@ notifications:
   email: false
 
 script:
-  - cat apt_sources.txt > /etc/apt/sources.list
-  - cat /etc/apt/sources.list
   - ./ubuntu-post-install.sh
