@@ -1,4 +1,6 @@
 dist: trusty
+notifications:
+  email: false
 
 script:
   - cat apt_sources.txt > /etc/apt/sources.list
