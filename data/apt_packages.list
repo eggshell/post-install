@@ -28,6 +28,7 @@ tp-smapi-dkms
 vim
 vlc
 xbacklight
+xclip
 xscreensaver
 xserver-xorg-input-synaptics
 zsh
