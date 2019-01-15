@@ -7,6 +7,7 @@ of Ubuntu.
 
 ## Usage
 
-```shell
+```bash
 sudo apt install curl
 curl -sL https://raw.githubusercontent.com/eggshell/post-install/master/ubuntu-post-install.sh | bash
+```
