@@ -2,7 +2,7 @@
 # Install applications and dev environment on clean Ubuntu install of latest LTS release.
 # Authored by eggshell (Cullen Taylor)
 
-set -eux
+set -e
 
 # INSTALL_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
