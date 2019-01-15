@@ -67,6 +67,14 @@ function ensure_ohmyzsh() {
   sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | grep -Ev 'chsh -s|env zsh')"
 }
 
+function remove_old_configs() {
+  reporter "Removing old config files"
+  OLD_CONFIGS=".zshrc .vimrc .vim .gitconfig"
+  for CONFIG in ${OLD_CONFIGS}; do
+      rm -rf $HOME/${CONFIG}
+  done
+}
+
 function ensure_dotfiles() {
   reporter "Grabbing and stowing dotfiles"
   DOTFILES_REPO=https://github.com/CullenTaylor/dotfiles.git
@@ -97,6 +105,7 @@ function main() {
   ensure_docker
   ensure_kubectl
   ensure_ohmyzsh
+  remove_old_configs
   ensure_dotfiles
 
   reporter "Installing ibmcloud tools"
