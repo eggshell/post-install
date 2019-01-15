@@ -1,4 +1,6 @@
 acpitool
+apt-transport-https
+ca-certificates
 compton
 curl
 ethtool
@@ -14,6 +16,7 @@ net-tools
 openconnect
 pavucontrol
 python-pip
+software-properties-common
 smartmontools
 stow
 tlp
