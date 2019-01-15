@@ -3,6 +3,7 @@ apt-transport-https
 ca-certificates
 compton
 curl
+deluge
 ethtool
 git
 hexchat
@@ -12,6 +13,7 @@ indicator-cpufreq
 libavcodec-extra
 libcpufreq0
 libc++1
+libreoffice
 net-tools
 openconnect
 pavucontrol
