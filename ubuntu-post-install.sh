@@ -2,6 +2,7 @@
 
 set -eux
 
+sudo add-apt-repository universe
 sudo apt update
 #sudo apt update && sudo apt upgrade -y
 sudo apt install -y $(awk '{ print $1 }' data/apt_packages.list)
