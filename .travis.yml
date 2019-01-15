@@ -1,0 +1,4 @@
+dist: trusty
+
+script:
+  - ./ubuntu-post-install.sh
