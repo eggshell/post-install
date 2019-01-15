@@ -1,0 +1,14 @@
+apt-transport-https
+ca-certificates
+curl
+ethtool
+git
+htop
+net-tools
+python-pip
+software-properties-common
+stow
+tmux
+vim
+xclip
+zsh

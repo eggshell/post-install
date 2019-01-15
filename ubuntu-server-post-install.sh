@@ -26,40 +26,6 @@ function check_for_internet() {
   fi
 }
 
-function ensure_repos() {
-  reporter "Ensuring universe and tlp repos are added"
-  sudo add-apt-repository -y universe
-  sudo add-apt-repository -y ppa:linrunner/tlp
-}
-
-function ensure_discord() {
-  reporter "Installing discord"
-  TEMP_DEB="$(mktemp)" &&
-  wget -O "$TEMP_DEB" 'https://discordapp.com/api/download?platform=linux&format=deb' &&
-  sudo dpkg -i "$TEMP_DEB"
-  rm -f "$TEMP_DEB"
-}
-
-function ensure_docker() {
-  reporter "Installing docker"
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  sudo add-apt-repository \
-     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-     $(lsb_release -cs) \
-     stable"
-  sudo apt update
-  sudo apt install -y docker-ce
-  sudo usermod -aG docker $(whoami)
-}
-
-function ensure_kubectl() {
-  reporter "Installing kubectl"
-  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-  sudo apt update
-  sudo apt install -y kubectl
-}
-
 function ensure_ohmyzsh() {
   reporter "Installing oh-my-zsh"
   CURRENT_USER=$(whoami)
@@ -91,7 +57,7 @@ function ensure_dotfiles() {
   DOTFILES_REPO=https://github.com/eggshell/dotfiles.git
   DOTFILES_DESTINATION=$HOME/dotfiles
   DOTFILES_BRANCH=master
-  STOW_LIST="config git htop vim xscreensaver xorg zsh"
+  STOW_LIST="git htop vim zsh"
 
   git clone ${DOTFILES_REPO} ${DOTFILES_DESTINATION}
   cd ${DOTFILES_DESTINATION}
@@ -104,28 +70,18 @@ function ensure_dotfiles() {
 
 function main() {
   check_for_internet
-  ensure_repos
 
   reporter "Updating apt cache"
   sudo apt update
 
   reporter "Installing apt packages from list"
-  sudo apt install -y $(awk '{ print $1 }' std_data/apt_packages.list)
+  sudo apt install -y $(awk '{ print $1 }' server_data/apt_packages.list)
 
-  ensure_discord
-  ensure_docker
-  ensure_kubectl
   ensure_ohmyzsh
   ensure_owned_dirs
   ensure_zsh_syntax_highlighting
   remove_old_configs
   ensure_dotfiles
-
-  reporter "Installing ibmcloud tools"
-  curl -sL https://ibm.biz/idt-installer | bash
-
-  reporter "Generating user RSA keys"
-  ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 }
 
 main "$@"

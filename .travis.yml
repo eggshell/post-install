@@ -2,5 +2,8 @@ dist: trusty
 notifications:
   email: false
 
-script:
-  - ./ubuntu-post-install.sh
+env:
+  - TEST_RUN="bash ubuntu-post-install.sh"
+  - TEST_RUN="bash ubuntu-server-post-install.sh"
+
+script: "$TEST_RUN"
