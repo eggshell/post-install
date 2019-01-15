@@ -3,6 +3,7 @@
 set -eux
 
 sudo add-apt-repository universe
+sudo add-apt-repository -y ppa:linrunner/tlp
 sudo apt update
 #sudo apt update && sudo apt upgrade -y
 sudo apt install -y $(awk '{ print $1 }' data/apt_packages.list)
