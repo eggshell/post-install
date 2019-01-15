@@ -77,7 +77,7 @@ function remove_old_configs() {
 
 function ensure_dotfiles() {
   reporter "Grabbing and stowing dotfiles"
-  DOTFILES_REPO=https://github.com/CullenTaylor/dotfiles.git
+  DOTFILES_REPO=https://github.com/eggshell/dotfiles.git
   DOTFILES_DESTINATION=$HOME/dotfiles
   DOTFILES_BRANCH=master
   STOW_LIST="config git htop vim xscreensaver xorg zsh"
