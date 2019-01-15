@@ -67,6 +67,17 @@ function ensure_ohmyzsh() {
   sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | grep -Ev 'chsh -s|env zsh')"
 }
 
+function ensure_owned_dirs() {
+  reporter "Ensuring needed dirs are owned by current user"
+  sudo chown -R $(whoami) /usr/local/src
+}
+
+function ensure_zsh_syntax_highlighting() {
+  reporter "Cloning zsh-syntax-highlighting"
+  SYNTAX_DIR=/usr/local/src
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${SYNTAX_DIR}
+}
+
 function remove_old_configs() {
   reporter "Removing old config files"
   OLD_CONFIGS=".zshrc .vimrc .vim .gitconfig"
@@ -105,6 +116,8 @@ function main() {
   ensure_docker
   ensure_kubectl
   ensure_ohmyzsh
+  ensure_owned_dirs
+  ensure_zsh_syntax_highlighting
   remove_old_configs
   ensure_dotfiles
 
