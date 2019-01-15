@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt update && sudo apt upgrade -y
+#sudo apt update && sudo apt upgrade -y
 sudo apt install -y $(awk '{ print $1 }' data/apt_packages.list)
 
 # Install discord
