@@ -3,7 +3,7 @@ notifications:
   email: false
 
 env:
-  - TEST_RUN="bash ubuntu-post-install.sh"
-  - TEST_RUN="bash ubuntu-server-post-install.sh"
+  - TEST_RUN="bash ubuntu-std-install.sh"
+  - TEST_RUN="bash ubuntu-server-install.sh"
 
 script: "$TEST_RUN"
