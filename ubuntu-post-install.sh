@@ -50,6 +50,7 @@ function ensure_docker() {
      stable"
   sudo apt update
   sudo apt install -y docker-ce
+  sudo usermod -aG docker $(whoami)
 }
 
 function ensure_kubectl() {
