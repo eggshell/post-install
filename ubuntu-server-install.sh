@@ -83,6 +83,9 @@ function main() {
   reporter "Installing apt packages from list"
   sudo apt install -y $(awk '{ print $1 }' server_data/apt_packages.list)
 
+  reporter "Installing pip packages from list"
+  pip install -r server_data/pip_packages.list
+
   ensure_ohmyzsh
   ensure_owned_dirs
   ensure_zsh_syntax_highlighting
