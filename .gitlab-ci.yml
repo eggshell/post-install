@@ -1,0 +1,16 @@
+stages:
+  - build
+
+server-build:
+  stage: build
+  script:
+    - bash ubuntu-server-install.sh
+  tags:
+    - linux
+
+std-build:
+  stage: build
+  script:
+    - bash ubuntu-std-install.sh
+  tags:
+    - linux
