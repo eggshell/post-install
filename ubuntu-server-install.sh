@@ -64,7 +64,7 @@ function rename_ohmyzsh_theme() {
 function ensure_dotfiles() {
   reporter "Grabbing and stowing dotfiles"
   DOTFILES_REPO=https://gitlab.com/eggshell/dotfiles.git
-  DOTFILES_DESTINATION=$HOME/dotfiles
+  DOTFILES_DESTINATION=/home/$(whoami)/dotfiles
   DOTFILES_BRANCH=master
   STOW_LIST="oh-my-zsh git htop vim zsh"
 
