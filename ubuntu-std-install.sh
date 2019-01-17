@@ -29,7 +29,8 @@ function check_for_internet() {
 function ensure_repos() {
   reporter "Ensuring universe and tlp repos are added"
   apt update -qq && apt install software-properties-common -y
-  add-apt-repository -y universe
+  #add-apt-repository -y universe
+  #add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
   add-apt-repository -y ppa:linrunner/tlp
 }
 
