@@ -29,14 +29,14 @@ function check_for_internet() {
 function ensure_ohmyzsh() {
   reporter "Installing oh-my-zsh"
   CURRENT_USER=$(whoami)
-  sudo usermod -s /usr/bin/zsh $CURRENT_USER
-  sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | grep -Ev 'chsh -s|env zsh')"
+  usermod -s /usr/bin/zsh $CURRENT_USER
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | grep -Ev 'chsh -s|env zsh')"
 }
 
 function ensure_owned_dirs() {
   reporter "Ensuring needed dirs are owned by current user"
-  sudo chown -R $(whoami):$(whoami) /usr/local/src
-  sudo chown -R $(whoami):$(whoami) /home/$(whoami)/.oh-my-zsh
+  chown -R $(whoami):$(whoami) /usr/local/src
+  chown -R $(whoami):$(whoami) /home/$(whoami)/.oh-my-zsh
 }
 
 function ensure_zsh_syntax_highlighting() {
@@ -78,10 +78,10 @@ function main() {
   check_for_internet
 
   reporter "Updating apt cache"
-  sudo apt update
+  apt update
 
   reporter "Installing apt packages from list"
-  sudo apt install -y $(awk '{ print $1 }' server_data/apt_packages.list)
+  apt install -y $(awk '{ print $1 }' server_data/apt_packages.list)
 
   reporter "Installing pip packages from list"
   pip install -r server_data/pip_packages.list
