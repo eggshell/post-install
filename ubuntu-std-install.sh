@@ -31,7 +31,7 @@ function ensure_repos() {
   apt update -qq && apt install software-properties-common -y
   #add-apt-repository -y universe
   #add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
-  add-apt-repository -y ppa:linrunner/tlp
+  #add-apt-repository -y ppa:linrunner/tlp
 }
 
 function ensure_discord() {
