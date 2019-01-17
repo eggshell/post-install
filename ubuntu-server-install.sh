@@ -36,7 +36,7 @@ function ensure_ohmyzsh() {
 function ensure_owned_dirs() {
   reporter "Ensuring needed dirs are owned by current user"
   chown -R $(whoami):$(whoami) /usr/local/src
-  chown -R $(whoami):$(whoami) /home/$(whoami)/.oh-my-zsh
+  chown -R $(whoami):$(whoami) /home/$(whoami)/.oh-my-zsh || :
 }
 
 function ensure_zsh_syntax_highlighting() {
