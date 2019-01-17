@@ -88,13 +88,16 @@ function remove_old_configs() {
 }
 
 function rename_ohmyzsh_theme() {
-  mv /home/$(whoami)/.oh-my-zsh/themes/sunrise.zsh-theme \
-     /home/$(whoami)/.oh-my-zsh/themes/sunrise.zsh-theme.old
+  if [ -d "/home/$(whoami)/.oh-my-zsh" ]; then
+    reporter "Backing up sunrise theme"
+    mv /home/$(whoami)/.oh-my-zsh/themes/sunrise.zsh-theme \
+       /home/$(whoami)/.oh-my-zsh/themes/sunrise.zsh-theme.old
+  fi
 }
 
 function ensure_dotfiles() {
   reporter "Grabbing and stowing dotfiles"
-  DOTFILES_REPO=https://github.com/eggshell/dotfiles.git
+  DOTFILES_REPO=https://gitlab.com/eggshell/dotfiles.git
   DOTFILES_DESTINATION=$HOME/dotfiles
   DOTFILES_BRANCH=master
   STOW_LIST="config git oh-my-zsh htop vim xscreensaver xorg zsh"
