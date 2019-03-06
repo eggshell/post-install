@@ -51,7 +51,7 @@ function ensure_docker() {
      stable"
   apt update
   apt install -y docker-ce
-  usermod -aG docker $(whoami)
+  usermod -aG docker eggshell
 }
 
 function ensure_kubectl() {
@@ -64,15 +64,15 @@ function ensure_kubectl() {
 
 function ensure_ohmyzsh() {
   reporter "Installing oh-my-zsh"
-  CURRENT_USER=$(whoami)
+  CURRENT_USER=eggshell
   usermod -s /usr/bin/zsh $CURRENT_USER
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | grep -Ev 'chsh -s|env zsh')"
 }
 
 function ensure_owned_dirs() {
   reporter "Ensuring needed dirs are owned by current user"
-  chown -R $(whoami):$(whoami) /usr/local/src
-  chown -R $(whoami):$(whoami) /home/$(whoami)/.oh-my-zsh || :
+  chown -R eggshell:eggshell /usr/local/src
+  chown -R eggshell:eggshell /home/eggshell/.oh-my-zsh || :
 }
 
 function ensure_zsh_syntax_highlighting() {
@@ -90,17 +90,17 @@ function remove_old_configs() {
 }
 
 function rename_ohmyzsh_theme() {
-  if [ -d "/home/$(whoami)/.oh-my-zsh" ]; then
+  if [ -d "/home/eggshell/.oh-my-zsh" ]; then
     reporter "Backing up sunrise theme"
-    mv /home/$(whoami)/.oh-my-zsh/themes/sunrise.zsh-theme \
-       /home/$(whoami)/.oh-my-zsh/themes/sunrise.zsh-theme.old
+    mv /home/eggshell/.oh-my-zsh/themes/sunrise.zsh-theme \
+       /home/eggshell/.oh-my-zsh/themes/sunrise.zsh-theme.old
   fi
 }
 
 function ensure_dotfiles() {
   reporter "Grabbing and stowing dotfiles"
   DOTFILES_REPO=https://gitlab.com/eggshell/dotfiles.git
-  DOTFILES_DESTINATION=/home/$(whoami)/dotfiles
+  DOTFILES_DESTINATION=/home/eggshell/dotfiles
   DOTFILES_BRANCH=master
   STOW_LIST="config git oh-my-zsh htop vim xscreensaver xorg zsh"
 
