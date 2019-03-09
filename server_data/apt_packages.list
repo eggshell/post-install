@@ -2,6 +2,7 @@ apt-transport-https
 ca-certificates
 curl
 ethtool
+fail2ban
 git
 htop
 net-tools
