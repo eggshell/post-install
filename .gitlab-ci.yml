@@ -16,7 +16,7 @@ server-build:
     - cd server
     - bash debian-server.sh
 
-std-build:
+laptop-build:
   stage: build
   image: debian:stretch
   before_script:
