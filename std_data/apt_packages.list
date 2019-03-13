@@ -10,7 +10,6 @@ git
 hexchat
 htop
 i3
-indicator-cpufreq
 libavcodec-extra
 libcpufreq0
 libc++1
@@ -22,7 +21,6 @@ powertop
 python-pip
 software-properties-common
 smartmontools
-steam
 stow
 tlp
 tlp-rdw

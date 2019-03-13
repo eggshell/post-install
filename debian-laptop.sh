@@ -27,39 +27,7 @@ function check_for_internet() {
 }
 
 function ensure_repos() {
-  reporter "Ensuring universe and tlp repos are added"
   apt update -qq && apt install software-properties-common -y
-  #add-apt-repository -y universe
-  #add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
-  #add-apt-repository -y ppa:linrunner/tlp
-}
-
-function ensure_discord() {
-  reporter "Installing discord"
-  TEMP_DEB="$(mktemp)" &&
-  wget -O "$TEMP_DEB" 'https://discordapp.com/api/download?platform=linux&format=deb' &&
-  dpkg -i "$TEMP_DEB"
-  rm -f "$TEMP_DEB"
-}
-
-function ensure_docker() {
-  reporter "Installing docker"
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-  add-apt-repository \
-     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-     $(lsb_release -cs) \
-     stable"
-  apt update
-  apt install -y docker-ce
-  usermod -aG docker eggshell
-}
-
-function ensure_kubectl() {
-  reporter "Installing kubectl"
-  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
-  apt update
-  apt install -y kubectl
 }
 
 function ensure_ohmyzsh() {
@@ -126,18 +94,12 @@ function main() {
   reporter "Installing pip packages from list"
   pip install -r server_data/pip_packages.list
 
-  ensure_discord
-  ensure_docker
-  ensure_kubectl
   ensure_ohmyzsh
   ensure_owned_dirs
   ensure_zsh_syntax_highlighting
   remove_old_configs
   rename_ohmyzsh_theme
   ensure_dotfiles
-
-  reporter "Installing ibmcloud tools"
-  curl -sL https://ibm.biz/idt-installer | bash
 
   reporter "Generating user RSA keys"
   ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
