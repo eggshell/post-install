@@ -3,14 +3,26 @@ stages:
 
 server-build:
   stage: build
+  image: debian:stretch-slim
+  before_script:
+    - apt update -qq
+    - apt install -yqq curl sudo
+    - useradd eggshell
+    - usermod -aG sudo eggshell
+    - mkdir -p /home/eggshell
+    - chown -R eggshell:eggshell /home/eggshell
   script:
-    - bash ubuntu-server-install.sh
-  tags:
-    - linux
+    - bash debian-server.sh
 
 std-build:
   stage: build
+  image: debian:stretch
+  before_script:
+    - apt update -qq
+    - apt install -yqq curl sudo
+    - useradd eggshell
+    - usermod -aG sudo eggshell
+    - mkdir -p /home/eggshell
+    - chown -R eggshell:eggshell /home/eggshell
   script:
-    - bash ubuntu-std-install.sh
-  tags:
-    - linux
+    - bash debian-laptop.sh
