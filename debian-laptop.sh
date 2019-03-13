@@ -92,7 +92,7 @@ function main() {
   apt install -y $(awk '{ print $1 }' std_data/apt_packages.list)
 
   reporter "Installing pip packages from list"
-  pip install -r server_data/pip_packages.list
+  pip install -r std_data/pip_packages.list
 
   ensure_ohmyzsh
   ensure_owned_dirs

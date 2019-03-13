@@ -12,6 +12,7 @@ server-build:
     - mkdir -p /home/eggshell
     - chown -R eggshell:eggshell /home/eggshell
   script:
+    - export DEBIAN_FRONTEND=noninteractive
     - bash debian-server.sh
 
 std-build:
@@ -25,4 +26,5 @@ std-build:
     - mkdir -p /home/eggshell
     - chown -R eggshell:eggshell /home/eggshell
   script:
+    - export DEBIAN_FRONTEND=noninteractive
     - bash debian-laptop.sh
