@@ -13,6 +13,7 @@ server-build:
     - chown -R eggshell:eggshell /home/eggshell
   script:
     - export DEBIAN_FRONTEND=noninteractive
+    - cd server
     - bash debian-server.sh
 
 std-build:
@@ -27,4 +28,5 @@ std-build:
     - chown -R eggshell:eggshell /home/eggshell
   script:
     - export DEBIAN_FRONTEND=noninteractive
+    - cd laptop
     - bash debian-laptop.sh
