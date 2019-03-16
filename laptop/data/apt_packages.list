@@ -4,6 +4,7 @@ ca-certificates
 compton
 curl
 ethtool
+fail2ban
 feh
 git
 htop
