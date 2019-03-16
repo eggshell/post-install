@@ -20,6 +20,7 @@ python-pip
 software-properties-common
 smartmontools
 stow
+texlive-latex-base
 tlp
 tlp-rdw
 tmux
