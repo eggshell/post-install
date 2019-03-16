@@ -21,6 +21,9 @@ software-properties-common
 smartmontools
 stow
 texlive-latex-base
+texlive-fonts-recommended
+texlive-fonts-extra
+texlive-latex-extra
 tlp
 tlp-rdw
 tmux
