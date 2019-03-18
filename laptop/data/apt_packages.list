@@ -18,8 +18,9 @@ openconnect
 pavucontrol
 powertop
 python-pip
-software-properties-common
+shutter
 smartmontools
+software-properties-common
 stow
 texlive-latex-base
 texlive-fonts-recommended
