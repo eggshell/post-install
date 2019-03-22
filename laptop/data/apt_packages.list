@@ -1,7 +1,6 @@
 acpitool
 apt-transport-https
 ca-certificates
-compton
 curl
 ethtool
 fail2ban
@@ -10,7 +9,6 @@ git
 htop
 i3
 libavcodec-extra
-libcpufreq0
 libc++1
 libreoffice
 net-tools
