@@ -3,6 +3,7 @@ apt-transport-https
 ca-certificates
 compton
 curl
+dirmngr
 ethtool
 fail2ban
 feh

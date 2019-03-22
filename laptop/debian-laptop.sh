@@ -1,5 +1,5 @@
 #!/bin/bash
-# Install applications and dev environment on clean Ubuntu install of latest LTS release.
+# Install applications and dev environment on clean Debian (stretch) install.
 # Authored by eggshell (Cullen Taylor)
 
 set -e
@@ -81,6 +81,16 @@ function ensure_dotfiles() {
   cd ${HOME}
 }
 
+function ensure_youtube_viewer() {
+  git clone https://github.com/trizen/youtube-viewer.git /home/eggshell/youtube-viewer
+  cd /home/eggshell/youtube-viewer
+  cpan Module::Build
+  perl Build.PL
+  sudo ./Build installdeps
+  sudo ./Build install
+  cd -
+}
+
 function main() {
   check_for_internet
   ensure_repos
@@ -100,6 +110,7 @@ function main() {
   remove_old_configs
   rename_ohmyzsh_theme
   ensure_dotfiles
+  ensure_youtube_viewer
 
   reporter "Generating user RSA keys"
   ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
