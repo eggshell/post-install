@@ -26,10 +26,6 @@ function check_for_internet() {
   fi
 }
 
-function ensure_repos() {
-  apt update -qq && apt install software-properties-common -y
-}
-
 function ensure_ohmyzsh() {
   reporter "Installing oh-my-zsh"
   CURRENT_USER=eggshell
@@ -40,7 +36,7 @@ function ensure_ohmyzsh() {
 function ensure_owned_dirs() {
   reporter "Ensuring needed dirs are owned by current user"
   chown -R eggshell:eggshell /usr/local/src
-  chown -R eggshell:eggshell /home/eggshell/.oh-my-zsh || :
+  chown -R eggshell:eggshell /home/eggshell
 }
 
 function ensure_zsh_syntax_highlighting() {
@@ -51,18 +47,10 @@ function ensure_zsh_syntax_highlighting() {
 
 function remove_old_configs() {
   reporter "Removing old config files"
-  OLD_CONFIGS=".gitconfig .zshrc .vimrc .vim"
+  OLD_CONFIGS=".gitconfig .zshrc .vimrc .vim .oh-my-zsh/themes/sunrise.zsh-theme"
   for CONFIG in ${OLD_CONFIGS}; do
       rm -rf $HOME/${CONFIG}
   done
-}
-
-function rename_ohmyzsh_theme() {
-  if [ -d "/home/eggshell/.oh-my-zsh" ]; then
-    reporter "Backing up sunrise theme"
-    mv /home/eggshell/.oh-my-zsh/themes/sunrise.zsh-theme \
-       /home/eggshell/.oh-my-zsh/themes/sunrise.zsh-theme.old
-  fi
 }
 
 function ensure_dotfiles() {
@@ -81,6 +69,11 @@ function ensure_dotfiles() {
   cd ${HOME}
 }
 
+function ensure_xorg_conf() {
+  rm /home/eggshell/xorg.conf
+  cp -f /home/eggshell/dotfiles/xorg/xorg.conf /etc/X11/xorg.conf
+}
+
 function ensure_youtube_viewer() {
   git clone https://github.com/trizen/youtube-viewer.git /home/eggshell/youtube-viewer
   cd /home/eggshell/youtube-viewer
@@ -93,7 +86,9 @@ function ensure_youtube_viewer() {
 
 function main() {
   check_for_internet
-  ensure_repos
+
+  reporter "Generating user RSA keys"
+  ssh-keygen -t rsa -N "" -f /home/eggshell/.ssh/id_rsa
 
   reporter "Updating apt cache"
   apt update
@@ -101,19 +96,16 @@ function main() {
   reporter "Installing apt packages from list"
   apt install -y $(awk '{ print $1 }' data/apt_packages.list)
 
-  reporter "Installing pip packages from list"
-  pip install -r data/pip_packages.list
+  reporter "Installing youtube-dl"
+  pip install youtube-dl
 
   ensure_ohmyzsh
   ensure_owned_dirs
   ensure_zsh_syntax_highlighting
   remove_old_configs
-  rename_ohmyzsh_theme
   ensure_dotfiles
-  ensure_youtube_viewer
-
-  reporter "Generating user RSA keys"
-  ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+  ensure_xorg_conf
+  # ensure_youtube_viewer
 }
 
 main "$@"
