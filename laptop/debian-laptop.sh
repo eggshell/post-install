@@ -87,9 +87,6 @@ function ensure_youtube_viewer() {
 function main() {
   check_for_internet
 
-  reporter "Generating user RSA keys"
-  ssh-keygen -t rsa -N "" -f /home/eggshell/.ssh/id_rsa
-
   reporter "Updating apt cache"
   apt update
 
@@ -106,6 +103,12 @@ function main() {
   ensure_dotfiles
   ensure_xorg_conf
   # ensure_youtube_viewer
+
+  reporter "Generating user RSA keys"
+  mkdir /home/eggshell/.ssh
+  ssh-keygen -t rsa -N "" -f /home/eggshell/.ssh/id_rsa
+  ensure_owned_dirs
+  ls -al /home/eggshell/.ssh
 }
 
 main "$@"
