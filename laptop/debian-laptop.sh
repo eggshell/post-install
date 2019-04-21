@@ -75,7 +75,7 @@ function ensure_xorg_conf() {
 }
 
 function ensure_firefox() {
-  bash -c "echo -e '\n# Firefox\n\ndeb http://ftp.hr.debian.org/debian sid main contrib non-free\n' >> /etc/apt/sources.list"
+  bash -c "echo -e '\n# Firefox\ndeb http://ftp.hr.debian.org/debian sid main contrib non-free' >> /etc/apt/sources.list"
   bash -c "echo -e '\n// default release should be stable\nAPT::Default-Release \"stable\";' >> /etc/apt/apt.conf.d/70debconf"
   apt update
   apt install -yt sid firefox
@@ -117,9 +117,6 @@ function main() {
   mkdir /home/eggshell/.ssh
   ssh-keygen -t rsa -N "" -f /home/eggshell/.ssh/id_rsa
   ensure_owned_dirs
-
-  cat /etc/apt/apt.conf.d/70debconf
-  cat /etc/apt/sources.list
 }
 
 main "$@"
