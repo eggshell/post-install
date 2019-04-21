@@ -108,7 +108,6 @@ function main() {
   mkdir /home/eggshell/.ssh
   ssh-keygen -t rsa -N "" -f /home/eggshell/.ssh/id_rsa
   ensure_owned_dirs
-  ls -al /home/eggshell/.ssh
 }
 
 main "$@"
