@@ -74,6 +74,14 @@ function ensure_xorg_conf() {
   cp -f /home/eggshell/dotfiles/xorg/xorg.conf /etc/X11/xorg.conf
 }
 
+function ensure_firefox() {
+  bash -c "echo -e '\n# Firefox\n\ndeb http://ftp.hr.debian.org/debian sid main contrib non-free\n' >> /etc/apt/sources.list"
+  bash -c "echo -e '\n// default release should be stable\nAPT::Default-Release \"stable\";' >> /etc/apt/apt.conf.d/70debconf"
+  apt update
+  apt install -t sid firefox
+  apt purge firefox-esr
+}
+
 function ensure_youtube_viewer() {
   git clone https://github.com/trizen/youtube-viewer.git /home/eggshell/youtube-viewer
   cd /home/eggshell/youtube-viewer
@@ -102,6 +110,7 @@ function main() {
   remove_old_configs
   ensure_dotfiles
   ensure_xorg_conf
+  ensure_firefox
   # ensure_youtube_viewer
 
   reporter "Generating user RSA keys"
