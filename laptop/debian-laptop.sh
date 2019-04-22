@@ -26,6 +26,12 @@ function check_for_internet() {
   fi
 }
 
+function ensure_apt_sources() {
+  reporter "Ensuring apt sources"
+  cat data/sources.list > /etc/apt/sources.list
+  bash -c "echo -e '\n// default release should be stable\nAPT::Default-Release \"stable\";' >> /etc/apt/apt.conf.d/70debconf"
+}
+
 function ensure_ohmyzsh() {
   reporter "Installing oh-my-zsh"
   CURRENT_USER=eggshell
@@ -75,8 +81,6 @@ function ensure_xorg_conf() {
 }
 
 function ensure_firefox() {
-  bash -c "echo -e '\n# Firefox\ndeb http://ftp.hr.debian.org/debian sid main contrib non-free' >> /etc/apt/sources.list"
-  bash -c "echo -e '\n// default release should be stable\nAPT::Default-Release \"stable\";' >> /etc/apt/apt.conf.d/70debconf"
   apt update -qq
   apt install -yt sid firefox
   apt purge firefox-esr -y
@@ -113,6 +117,7 @@ function ensure_youtube_viewer() {
 
 function main() {
   check_for_internet
+  ensure_apt_sources
 
   reporter "Updating apt cache"
   apt update -qq
