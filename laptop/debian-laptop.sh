@@ -26,6 +26,7 @@ function ensure_eggshell() {
   usermod -aG sudo eggshell
   mkdir -p /home/eggshell
   chown -R eggshell:eggshell /home/eggshell
+  bash -c "echo '\neggshell ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers"
 }
 
 function check_for_internet() {
@@ -127,7 +128,7 @@ function ensure_youtube_viewer() {
 }
 
 function ensure_vpn() {
-  sh data/pia.run
+  /bin/su -c "sh /eggshell/post-install/laptop/data/pia.run" - eggshell
 }
 
 function main() {

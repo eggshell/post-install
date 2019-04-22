@@ -37,5 +37,4 @@ laptop-build:
   script:
     - export DEBIAN_FRONTEND=noninteractive
     - cd laptop
-    - pwd
-    # - bash debian-laptop.sh
+    - bash debian-laptop.sh
