@@ -1,35 +1,35 @@
 stages:
   - build
 
-server-build:
-  stage: build
-  image: debian:stretch-slim
-  before_script:
-    - apt update -qq
-    - apt install -yqq curl sudo
-    - useradd eggshell
-    - usermod -aG sudo eggshell
-    - mkdir -p /home/eggshell
-    - chown -R eggshell:eggshell /home/eggshell
-  script:
-    - export DEBIAN_FRONTEND=noninteractive
-    - cd server
-    - bash debian-server.sh
-
-desktop-build:
-  stage: build
-  image: debian:stretch
-  before_script:
-    - apt update -qq
-    - apt install -yqq curl sudo
-    - useradd eggshell
-    - usermod -aG sudo eggshell
-    - mkdir -p /home/eggshell
-    - chown -R eggshell:eggshell /home/eggshell
-  script:
-    - export DEBIAN_FRONTEND=noninteractive
-    - cd desktop
-    - bash debian-desktop.sh
+#server-build:
+#  stage: build
+#  image: debian:stretch-slim
+#  before_script:
+#    - apt update -qq
+#    - apt install -yqq curl sudo
+#    - useradd eggshell
+#    - usermod -aG sudo eggshell
+#    - mkdir -p /home/eggshell
+#    - chown -R eggshell:eggshell /home/eggshell
+#  script:
+#    - export DEBIAN_FRONTEND=noninteractive
+#    - cd server
+#    - bash debian-server.sh
+#
+#desktop-build:
+#  stage: build
+#  image: debian:stretch
+#  before_script:
+#    - apt update -qq
+#    - apt install -yqq curl sudo
+#    - useradd eggshell
+#    - usermod -aG sudo eggshell
+#    - mkdir -p /home/eggshell
+#    - chown -R eggshell:eggshell /home/eggshell
+#  script:
+#    - export DEBIAN_FRONTEND=noninteractive
+#    - cd desktop
+#    - bash debian-desktop.sh
 
 laptop-build:
   stage: build
@@ -37,4 +37,5 @@ laptop-build:
   script:
     - export DEBIAN_FRONTEND=noninteractive
     - cd laptop
-    - bash debian-laptop.sh
+    - pwd
+    # - bash debian-laptop.sh
