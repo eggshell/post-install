@@ -128,7 +128,8 @@ function ensure_youtube_viewer() {
 }
 
 function ensure_vpn() {
-  /bin/su -c "sh /eggshell/post-install/laptop/data/pia.run" - eggshell
+  find / -name pia.run
+  # /bin/su -c "sh /eggshell/post-install/laptop/data/pia.run" - eggshell
 }
 
 function main() {
