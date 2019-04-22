@@ -28,8 +28,16 @@ function check_for_internet() {
 
 function ensure_apt_sources() {
   reporter "Ensuring apt sources"
+
+  # Ensure desired apt sources list
   cat data/sources.list > /etc/apt/sources.list
+
+  # Ensure default release is stable
   bash -c "echo -e '\n// default release should be stable\nAPT::Default-Release \"stable\";' >> /etc/apt/apt.conf.d/70debconf"
+
+  # kubectl
+  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
 }
 
 function ensure_ohmyzsh() {
@@ -81,7 +89,6 @@ function ensure_xorg_conf() {
 }
 
 function ensure_firefox() {
-  apt update -qq
   apt install -yt sid firefox
   apt purge firefox-esr -y
 }
@@ -90,14 +97,6 @@ function ensure_golang() {
   wget https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz
   tar -C /usr/local -xzf go1.12.4.linux-amd64.tar.gz
   rm go1.12.4.linux-amd64.tar.gz
-}
-
-function ensure_kubectl() {
-    reporter "Ensuring kubectl"
-    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
-    apt update -qq
-    apt install -y kubectl
 }
 
 function ensure_helm() {
@@ -136,7 +135,6 @@ function main() {
   ensure_xorg_conf
   ensure_firefox
   ensure_golang
-  ensure_kubectl
   ensure_helm
   # ensure_youtube_viewer
 
