@@ -33,6 +33,7 @@ tmux
 tp-smapi-dkms
 vim
 vlc
+wget
 xbacklight
 xclip
 xscreensaver
