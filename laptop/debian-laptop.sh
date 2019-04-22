@@ -77,7 +77,7 @@ function ensure_xorg_conf() {
 function ensure_firefox() {
   bash -c "echo -e '\n# Firefox\ndeb http://ftp.hr.debian.org/debian sid main contrib non-free' >> /etc/apt/sources.list"
   bash -c "echo -e '\n// default release should be stable\nAPT::Default-Release \"stable\";' >> /etc/apt/apt.conf.d/70debconf"
-  apt update
+  apt update -qq
   apt install -yt sid firefox
   apt purge firefox-esr -y
 }
@@ -86,6 +86,19 @@ function ensure_golang() {
   wget https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz
   tar -C /usr/local -xzf go1.12.4.linux-amd64.tar.gz
   rm go1.12.4.linux-amd64.tar.gz
+}
+
+function ensure_kubectl() {
+    reporter "Ensuring kubectl"
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+    apt update -qq
+    apt install -y kubectl
+}
+
+function ensure_helm() {
+  reporter "Ensuring helm"
+  curl https://raw.githubusercontent.com/helm/helm/master/scripts/get | bash
 }
 
 function ensure_youtube_viewer() {
@@ -102,7 +115,7 @@ function main() {
   check_for_internet
 
   reporter "Updating apt cache"
-  apt update
+  apt update -qq
 
   reporter "Installing apt packages from list"
   apt install -y $(awk '{ print $1 }' data/apt_packages.list)
@@ -118,6 +131,8 @@ function main() {
   ensure_xorg_conf
   ensure_firefox
   ensure_golang
+  ensure_kubectl
+  ensure_helm
   # ensure_youtube_viewer
 
   reporter "Generating user RSA keys"
