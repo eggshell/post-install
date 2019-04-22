@@ -82,6 +82,12 @@ function ensure_firefox() {
   apt purge firefox-esr -y
 }
 
+function ensure_golang() {
+  wget https://dl.google.com/go/go1.12.4.linux-amd64.tar.gz
+  tar -C /usr/local -xzf go1.12.4.linux-amd64.tar.gz
+  rm go1.12.4.linux-amd64.tar.gz
+}
+
 function ensure_youtube_viewer() {
   git clone https://github.com/trizen/youtube-viewer.git /home/eggshell/youtube-viewer
   cd /home/eggshell/youtube-viewer
@@ -111,6 +117,7 @@ function main() {
   ensure_dotfiles
   ensure_xorg_conf
   ensure_firefox
+  ensure_golang
   # ensure_youtube_viewer
 
   reporter "Generating user RSA keys"
