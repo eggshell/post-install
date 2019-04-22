@@ -150,7 +150,7 @@ function main() {
   ensure_firefox
   ensure_golang
   ensure_helm
-  # ensure_youtube_viewer
+  ensure_youtube_viewer
 
   reporter "Generating user RSA keys"
   mkdir /home/eggshell/.ssh
