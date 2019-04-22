@@ -12,6 +12,7 @@ i3
 libavcodec-extra
 libc++1
 libreoffice
+lightdm
 net-tools
 openconnect
 pavucontrol
