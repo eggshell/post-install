@@ -126,6 +126,10 @@ function ensure_youtube_viewer() {
   cd -
 }
 
+function ensure_vpn() {
+  sh data/pia.run
+}
+
 function main() {
   ensure_dependencies
   ensure_eggshell
@@ -151,6 +155,7 @@ function main() {
   ensure_golang
   ensure_helm
   ensure_youtube_viewer
+  ensure_vpn
 
   reporter "Generating user RSA keys"
   mkdir /home/eggshell/.ssh
