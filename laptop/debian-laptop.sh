@@ -16,6 +16,18 @@ function reporter() {
   echo
 }
 
+function ensure_dependencies() {
+  apt update -qq
+  apt install -yqq apt-transport-https curl gnupg2 sudo
+}
+
+function ensure_eggshell() {
+  useradd eggshell
+  usermod -aG sudo eggshell
+  mkdir -p /home/eggshell
+  chown -R eggshell:eggshell /home/eggshell
+}
+
 function check_for_internet() {
   reporter "Confirming internet connection"
   if [[ ! $(curl -Is http://www.google.com/ | head -n 1) =~ "200 OK" ]]; then
@@ -115,6 +127,8 @@ function ensure_youtube_viewer() {
 }
 
 function main() {
+  ensure_dependencies
+  ensure_eggshell
   check_for_internet
   ensure_apt_sources
 
