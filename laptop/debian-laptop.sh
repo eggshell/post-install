@@ -156,7 +156,7 @@ function main() {
   ensure_golang
   ensure_helm
   ensure_youtube_viewer
-  ensure_vpn
+  # ensure_vpn
 
   reporter "Generating user RSA keys"
   mkdir /home/eggshell/.ssh
