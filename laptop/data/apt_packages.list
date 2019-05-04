@@ -13,7 +13,6 @@ kubectl
 libavcodec-extra
 libc++1
 libreoffice
-lightdm
 nautilus-dropbox
 net-tools
 openconnect
