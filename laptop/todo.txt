@@ -1,0 +1,9 @@
+? configure go
+? Install pia
+Install buildah/skopeo/podman
+Install steam/eidolon
+Install youtube-viewer
+battery/power tuning
+disable unneeded services on startup
+
+Unify script between systems
