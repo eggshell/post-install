@@ -30,7 +30,7 @@ function ensure_ohmyzsh() {
   reporter "Installing oh-my-zsh"
   CURRENT_USER="eggshell"
   usermod -s /usr/bin/zsh $CURRENT_USER
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | grep -Ev 'chsh -s|env zsh')"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 }
 
 function ensure_owned_dirs() {
