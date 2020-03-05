@@ -9,6 +9,7 @@ net-tools
 python-pip
 software-properties-common
 stow
+texlive-latex-base
 tmux
 vim
 xclip
